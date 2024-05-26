@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Tarefa;
 
+use App\Models\Tarefa;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTarefaRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreTarefaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreTarefaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nome' => 'required|string|min:3|max:255',
+            'prioridade' => 'required|in:' .implode(',', Tarefa::PRIORIDADES),
+            'status' => 'required|in:' . implode(',', Tarefa::STATUSES),
+            'vencimento' => 'required|after:' . date('d-m-Y')
         ];
     }
 }
