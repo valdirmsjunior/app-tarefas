@@ -2,64 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Tarefa\StoreTarefaRequest;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class TarefaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct() {
+        $this->authorizeResource(Tarefa::class, 'tarefa');
+    }
+    
+    public function index(): Response
     {
-        //
+        $tarefas = Tarefa::all();
+
+        return Inertia::render('Tarefa/Index', ['tarefas' => Auth::user()->tarefas]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        Auth::user()->tarefas()->create($request->validated());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tarefa $tarefa)
+        return Redirect::route('tarefas.index')->with('success', 'Tarefa Criada.');
+    }
+    
+    public function update(StoreTarefaRequest $request, Tarefa $tarefa)
     {
-        //
+        $tarefa->update($request->validated());
+
+        return Redirect::route('tarefas.index')->with('success', 'Tarefa Atualizada');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tarefa $tarefa)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tarefa $tarefa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tarefa $tarefa)
     {
-        //
+        $tarefa->delete();
+
+        return Redirect::route('tarefas.index')->with('success', 'Tarefa Delatada com sucesso!');
     }
 }
