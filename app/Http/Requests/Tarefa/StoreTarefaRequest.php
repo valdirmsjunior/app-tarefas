@@ -4,6 +4,7 @@ namespace App\Http\Requests\Tarefa;
 
 use App\Models\Tarefa;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 class StoreTarefaRequest extends FormRequest
 {

@@ -14,9 +14,9 @@ class Tarefa extends Model
     ];
 
     //Adicionando os enums
-    public const PRIORIDADE_ALTA = 'alta';
-    public const PRIORIDADE_MEDIA = 'media';
-    public const PRIORIDADE_BAIXA = 'baixa';
+    public const PRIORIDADE_ALTA = 'Alta';
+    public const PRIORIDADE_MEDIA = 'Média';
+    public const PRIORIDADE_BAIXA = 'Baixa';
 
     public const PRIORIDADES = [
         self::PRIORIDADE_ALTA,
