@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Tarefa;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,13 +18,13 @@ class TarefaPolicy
         return true;
     }
 
-    public function update(User $user, Task $task): bool
+    public function update(User $user, Tarefa $tarefa): bool
     {
-        return $user->id === $task->user_id;
+        return $user->id === $tarefa->user_id;
     }
 
-    public function delete(User $user, Task $task): bool
+    public function delete(User $user, Tarefa $tarefa): bool
     {
-        return $user->id === $task->user_id;
+        return $user->id === $tarefa->user_id;
     }
 }
