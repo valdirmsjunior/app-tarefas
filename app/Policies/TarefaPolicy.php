@@ -10,7 +10,7 @@ class TarefaPolicy
 {
     public function viewAny(?User $user): bool
     {
-        return $user->id == Auth::user()->id;
+        return $user->id === Auth::user()->id;
     }
 
     public function create(User $user): bool
